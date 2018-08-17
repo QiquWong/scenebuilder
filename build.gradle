@@ -9,6 +9,13 @@ ext.getStringProperty = { name, defaultValue ->
     return propertyValue != null ? propertyValue.toString().trim() : defaultValue
 }
 
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+}
+
 subprojects {
     apply plugin: 'java'
 
@@ -18,6 +25,8 @@ subprojects {
     ext.buildDateFormat = version.endsWith('-SNAPSHOT') ? 'yyyy-MM-dd HH:mm:ss' : 'yyyy-MM-dd'
 
     repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots/"
         }
@@ -27,9 +36,8 @@ subprojects {
         maven {
             url "http://nexus.gluonhq.com/nexus/content/repositories/releases/"
         }
-
-        jcenter()
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
